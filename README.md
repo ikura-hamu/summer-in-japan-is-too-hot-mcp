@@ -28,16 +28,16 @@ You can connect to this server from MCP clients (such as Claude Desktop) and cal
 
 ```bash
 # STDIO version
-go install github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp/cmd/stdio@latest
+go install github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp/cmd/summer-in-japan-is-too-hot-mcp-stdio@latest
 
 # HTTP version
-go install github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp/cmd/http@latest
+go install github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp/cmd/summer-in-japan-is-too-hot-mcp-http@latest
 
 # SSE version
-go install github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp/cmd/sse@latest
+go install github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp/cmd/summer-in-japan-is-too-hot-mcp-sse@latest
 
 # In-Process test version
-go install github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp/cmd/inprocess@latest
+go install github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp/cmd/summer-in-japan-is-too-hot-mcp-inprocess@latest
 ```
 
 ## Running the Server
@@ -47,7 +47,7 @@ go install github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp/cmd/inprocess@la
 Uses standard input/output to communicate via the MCP protocol. Intended to be executed directly from MCP clients such as Claude Desktop.
 
 ```bash
-stdio
+summer-in-japan-is-too-hot-mcp-stdio
 ```
 
 **Options**: None
@@ -57,7 +57,7 @@ stdio
 Communicates via the MCP protocol over HTTP connections.
 
 ```bash
-http [-port <port_number>]
+summer-in-japan-is-too-hot-mcp-http [-port <port_number>]
 ```
 
 **Options**:
@@ -68,10 +68,10 @@ http [-port <port_number>]
 
 ```bash
 # Start with default port (8080)
-http
+summer-in-japan-is-too-hot-mcp-http
 
 # Start on port 9090
-http -port 9090
+summer-in-japan-is-too-hot-mcp-http -port 9090
 ```
 
 ### SSE Version
@@ -79,7 +79,7 @@ http -port 9090
 Communicates via the MCP protocol using Server-Sent Events (SSE).
 
 ```bash
-sse [-port <port_number>]
+summer-in-japan-is-too-hot-mcp-sse [-port <port_number>]
 ```
 
 **Options**:
@@ -90,10 +90,10 @@ sse [-port <port_number>]
 
 ```bash
 # Start with default port (8080)
-sse
+summer-in-japan-is-too-hot-mcp-sse
 
 # Start on port 9090
-sse -port 9090
+summer-in-japan-is-too-hot-mcp-sse -port 9090
 ```
 
 ### In-Process Test Version
@@ -101,7 +101,7 @@ sse -port 9090
 A test version where the server and client operate within the same process. Automatically calls the `make_japan_cool` tool and displays the result.
 
 ```bash
-inprocess
+summer-in-japan-is-too-hot-mcp-inprocess
 ```
 
 **Options**: None
