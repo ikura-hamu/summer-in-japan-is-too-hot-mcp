@@ -26,6 +26,8 @@ You can connect to this server from MCP clients (such as Claude Desktop) and cal
 
 ## Installation
 
+### With Go
+
 ```bash
 # STDIO version
 go install github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp/cmd/summer-in-japan-is-too-hot-mcp-stdio@latest
@@ -38,6 +40,22 @@ go install github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp/cmd/summer-in-ja
 
 # In-Process test version
 go install github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp/cmd/summer-in-japan-is-too-hot-mcp-inprocess@latest
+```
+
+### With Nix Flakes
+
+```bash
+# STDIO version
+nix run "github:ikura-hamu/summer-in-japan-is-too-hot-mcp#stdio"
+
+# HTTP version
+nix run "github:ikura-hamu/summer-in-japan-is-too-hot-mcp#http"
+
+# SSE version
+nix run "github:ikura-hamu/summer-in-japan-is-too-hot-mcp#sse"
+
+# In-Process test Version
+nix run "github:ikura-hamu/summer-in-japan-is-too-hot-mcp#inprocess"
 ```
 
 ## Running the Server
