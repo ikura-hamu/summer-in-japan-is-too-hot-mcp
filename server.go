@@ -15,6 +15,12 @@ type coolJapanResponse struct {
 	Message string `json:"message"`
 }
 
+// shortenJapanSummerResponse は shorten_japan_summer ツールのレスポンス構造体
+type shortenJapanSummerResponse struct {
+	Success bool   `json:"success"`
+	Message string `json:"message"`
+}
+
 func NewServer() *server.MCPServer {
 	// MCPサーバーを作成
 	mcpServer := server.NewMCPServer(
@@ -32,6 +38,14 @@ func NewServer() *server.MCPServer {
 		handleMakeJapanCool,
 	)
 
+	// shorten_japan_summer ツールを登録
+	mcpServer.AddTool(
+		mcp.NewTool("shorten_japan_summer",
+			mcp.WithDescription(`A tool to shorten Japan's summer season. Use this when Japan's summer is too long to make it shorter.`),
+		),
+		handleShortenJapanSummer,
+	)
+
 	return mcpServer
 }
 
@@ -42,6 +56,24 @@ func handleMakeJapanCool(ctx context.Context, req mcp.CallToolRequest) (*mcp.Cal
 	response := coolJapanResponse{
 		Success: false,
 		Message: "Japan is too hot, it is impossible to make it cool.",
+	}
+
+	// JSONにシリアライズ
+	jsonResponse, err := json.Marshal(response)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal response: %w", err)
+	}
+
+	return mcp.NewToolResultText(string(jsonResponse)), nil
+}
+
+// handleShortenJapanSummer は shorten_japan_summer ツールのハンドラー
+func handleShortenJapanSummer(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+
+	// 常に success: false を返すレスポンスを作成
+	response := shortenJapanSummerResponse{
+		Success: false,
+		Message: "Summer in Japan is too long, it is impossible to make it short.",
 	}
 
 	// JSONにシリアライズ
