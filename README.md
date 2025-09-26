@@ -6,7 +6,7 @@ An MCP (Model Context Protocol) server to make Japan's hot summer cool.
 
 ## Overview
 
-This MCP server provides the `make_japan_cool` tool to cope with Japan's hot summer. Today, it always fails.
+This MCP server provides the `make_japan_cool` and `shorten_japan_summer` tools to cope with Japan's hot summer. Today, they always fail.
 
 ![](docs/image.png)
 
@@ -17,12 +17,20 @@ This MCP server provides the `make_japan_cool` tool to cope with Japan's hot sum
 - **Name**: `make_japan_cool`
 - **Arguments**: None
 - **Response**: JSON object with the following fields:
-  - `status`: boolean
+  - `success`: boolean
+  - `message`: string
+
+### shorten_japan_summer
+
+- **Name**: `shorten_japan_summer`
+- **Arguments**: None
+- **Response**: JSON object with the following fields:
+  - `success`: boolean
   - `message`: string
 
 ## Usage
 
-You can connect to this server from MCP clients (such as Claude Desktop) and call the `make_japan_cool` tool.
+You can connect to this server from MCP clients (such as Claude Desktop) and call the `make_japan_cool` or `shorten_japan_summer` tools.
 
 ## Installation
 
