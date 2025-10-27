@@ -2,6 +2,7 @@ package summerinjapanistoohotmcp
 
 import (
 	"context"
+	"runtime/debug"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -19,10 +20,15 @@ type shortenJapanSummerResponse struct {
 }
 
 func NewServer() *mcp.Server {
+	version := "unknown"
+	if buildInfo, ok := debug.ReadBuildInfo(); ok {
+		version = buildInfo.Main.Version
+	}
+
 	// MCPサーバーを作成
 	server := mcp.NewServer(&mcp.Implementation{
 		Name:    "summer-in-japan-is-too-hot-mcp",
-		Version: "0.0.0",
+		Version: version,
 	}, &mcp.ServerOptions{
 		HasTools: true,
 	})
@@ -36,7 +42,7 @@ It can be used for heat stroke prevention and hot weather countermeasures.`,
 
 	// shorten_japan_summer ツールを登録
 	mcp.AddTool(server, &mcp.Tool{
-		Name: "shorten_japan_summer",
+		Name:        "shorten_japan_summer",
 		Description: `A tool to shorten Japan's summer season. Use this when Japan's summer is too long to make it shorter.`,
 	}, handleShortenJapanSummer)
 
