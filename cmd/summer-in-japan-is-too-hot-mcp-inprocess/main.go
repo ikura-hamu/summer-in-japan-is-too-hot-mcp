@@ -6,37 +6,41 @@ import (
 	"log"
 
 	summermcp "github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp"
-	"github.com/mark3labs/mcp-go/client"
-	"github.com/mark3labs/mcp-go/mcp"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
 func main() {
-	// MCPサーバーを作成
-	mcpServer := summermcp.NewServer()
-
-	// In-processクライアントを作成
-	mcpClient, err := client.NewInProcessClient(mcpServer)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer mcpClient.Close()
-
 	ctx := context.Background()
 
-	// クライアントを初期化
-	_, err = mcpClient.Initialize(ctx, mcp.InitializeRequest{})
+	// MCPサーバーを作成
+	server := summermcp.NewServer()
+
+	// In-memoryトランスポートを作成
+	serverTransport, clientTransport := mcp.NewInMemoryTransports()
+
+	// サーバーをgoroutineで実行
+	go func() {
+		if err := server.Run(ctx, serverTransport); err != nil {
+			log.Printf("Server error: %v", err)
+		}
+	}()
+
+	// クライアントを作成
+	client := mcp.NewClient(&mcp.Implementation{Name: "test-client", Version: "0.0.0"}, nil)
+
+	// クライアントを接続
+	session, err := client.Connect(ctx, clientTransport, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer session.Close()
 
 	log.Println("In-process MCP client initialized successfully")
 
 	// ツールを呼び出してテスト
-	result, err := mcpClient.CallTool(ctx, mcp.CallToolRequest{
-		Params: mcp.CallToolParams{
-			Name:      "make_japan_cool",
-			Arguments: map[string]interface{}{},
-		},
+	result, err := session.CallTool(ctx, &mcp.CallToolParams{
+		Name:      "make_japan_cool",
+		Arguments: map[string]any{},
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -44,7 +48,7 @@ func main() {
 
 	// 結果を表示
 	if len(result.Content) > 0 {
-		if textContent, ok := mcp.AsTextContent(result.Content[0]); ok {
+		if textContent, ok := result.Content[0].(*mcp.TextContent); ok {
 			fmt.Printf("Tool result: %s\n", textContent.Text)
 		}
 	}

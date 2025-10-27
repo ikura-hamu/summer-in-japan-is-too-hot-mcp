@@ -1,16 +1,17 @@
 package main
 
 import (
+	"context"
 	"log"
 
 	summermcp "github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp"
-	"github.com/mark3labs/mcp-go/server"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
 func main() {
-	mcpServer := summermcp.NewServer()
+	server := summermcp.NewServer()
 
-	if err := server.ServeStdio(mcpServer); err != nil {
+	if err := server.Run(context.Background(), &mcp.StdioTransport{}); err != nil {
 		log.Fatal(err)
 	}
 }
