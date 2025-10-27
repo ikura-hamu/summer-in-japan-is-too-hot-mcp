@@ -3,20 +3,23 @@ package main
 import (
 	"flag"
 	"log"
+	"net/http"
 
 	summermcp "github.com/ikura-hamu/summer-in-japan-is-too-hot-mcp"
-	"github.com/mark3labs/mcp-go/server"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
 func main() {
 	var port = flag.String("port", "8080", "Port to listen on")
 	flag.Parse()
 
-	mcpServer := summermcp.NewServer()
+	server := summermcp.NewServer()
 
 	log.Printf("Starting HTTP MCP server on port %s", *port)
-	httpServer := server.NewStreamableHTTPServer(mcpServer)
-	if err := httpServer.Start(":" + *port); err != nil {
+	handler := mcp.NewStreamableHTTPHandler(func(request *http.Request) *mcp.Server {
+		return server
+	}, nil)
+	if err := http.ListenAndServe(":"+*port, handler); err != nil {
 		log.Fatal(err)
 	}
 }
