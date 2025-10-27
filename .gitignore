@@ -35,3 +35,9 @@ bin/
 
 # Nix artifacts
 result
+
+# Compiled binaries
+summer-in-japan-is-too-hot-mcp-stdio
+summer-in-japan-is-too-hot-mcp-http
+summer-in-japan-is-too-hot-mcp-sse
+summer-in-japan-is-too-hot-mcp-inprocess
