@@ -138,4 +138,4 @@ This project is released under the MIT License.
 
 ## Dependencies
 
-- [mcp-go](https://github.com/mark3labs/mcp-go) - Go implementation of the MCP protocol
+- [go-sdk](https://github.com/modelcontextprotocol/go-sdk) - Official Go SDK for the Model Context Protocol
