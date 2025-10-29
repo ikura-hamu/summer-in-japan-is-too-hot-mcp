@@ -32,6 +32,10 @@ This MCP server provides the `make_japan_cool` and `shorten_japan_summer` tools 
 
 You can connect to this server from MCP clients (such as Claude Desktop) and call the `make_japan_cool` or `shorten_japan_summer` tools.
 
+## Online server
+
+HTTP version of this MCP server is running on https://summer-in-japan-is-too-hot-mcp.trap.show/ !
+
 ## Installation
 
 ### With Go
